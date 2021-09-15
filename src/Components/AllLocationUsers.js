@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import useAxios from "axios-hooks";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 
 const AllLocationUsers = ({ initMap, initCircle }) => {
@@ -71,6 +71,22 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
     });
   }
 
+  // Polyline을 위한 Array
+  // 0: {sam: Array(2)}
+  // 2: {woo: Array(2)}
+  let pathLines = [];
+  if (!loading && !error) {
+    data.result.forEach((user, index) => {
+      for (let i = 0; i < usersId.length; i++) {
+        if (usersId[i] === user.id) {
+          let obj = {};
+          obj[user.id] = [user.latitude, user.longitude];
+          pathLines.push(obj);
+        }
+      }
+    });
+  }
+  console.log(pathLines);
   return (
     <>
       {!loading
@@ -111,7 +127,17 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
             }
           })
         : null}
-      <h1>aa</h1>
+      {!loading
+        ? usersId.map((id, idIndex) => {
+            let arr = [];
+            pathLines.map((line) => {
+              if (Object.keys(line)[0] === id)
+                arr.push(line[Object.keys(line)[0]]);
+            });
+            // console.log(arr);
+            return <Polyline positions={arr} color="red" key={idIndex} />;
+          })
+        : null}
     </>
   );
 };
