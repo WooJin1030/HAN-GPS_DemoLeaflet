@@ -42,7 +42,7 @@ const App = () => {
     iconRetinaUrl:
       "https://user-images.githubusercontent.com/62231339/132805364-f99877c0-5909-403a-aede-7dc11421a6a6.png",
     iconAnchor: null,
-    popupAnchor: [0, 0],
+    popupAnchor: [0, -10],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,

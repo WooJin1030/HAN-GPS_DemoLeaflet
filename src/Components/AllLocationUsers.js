@@ -2,10 +2,10 @@ import React from "react";
 import useAxios from "axios-hooks";
 import { Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
+import DeleleteBtn from "./DeleteBtn";
 
 const AllLocationUsers = ({ initMap, initCircle }) => {
   const BaseURL = "https://www.gpsdemo.shop/";
-  const usersIdx = [];
   const usersId = [];
 
   // 범위 안의 마커
@@ -39,7 +39,7 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
   });
 
   // 위도 경도로 거리 계산
-  function getDistanceFromLatLonInKm(lat1, lng1, lat2, lng2) {
+  const getDistanceFromLatLonInKm = (lat1, lng1, lat2, lng2) => {
     function deg2rad(deg) {
       return deg * (Math.PI / 180);
     }
@@ -56,7 +56,15 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     let d = R * c; // Distance in km
     return d * 1000;
-  }
+  };
+
+  // 랜덤 색
+  const random_rgb = () => {
+    let o = Math.round,
+      r = Math.random,
+      s = 200;
+    return `rgb(${o(r() * s)}, ${o(r() * s)}, ${o(r() * s)})`;
+  };
 
   // 위치정보값을 가지고 있는 유저 데이터
   const [{ data, loading, error }, refetch] = useAxios(
@@ -65,8 +73,7 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
 
   if (!loading && !error) {
     data.result.forEach((user) => {
-      // 유저의 인덱스, 아이디 뽑아내기
-      if (!usersIdx.includes(user.userIdx)) usersIdx.push(user.userIdx);
+      //아이디 뽑아내기
       if (!usersId.includes(user.id)) usersId.push(user.id);
     });
   }
@@ -86,10 +93,10 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
       }
     });
   }
-  console.log(pathLines);
+  // console.log(pathLines);
   return (
     <>
-      {!loading
+      {!loading && !error
         ? data.result.map((user, index) => {
             if (
               getDistanceFromLatLonInKm(
@@ -127,7 +134,7 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
             }
           })
         : null}
-      {!loading
+      {!loading && !error
         ? usersId.map((id, idIndex) => {
             let arr = [];
             pathLines.map((line) => {
@@ -135,9 +142,12 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
                 arr.push(line[Object.keys(line)[0]]);
             });
             // console.log(arr);
-            return <Polyline positions={arr} color="red" key={idIndex} />;
+            return (
+              <Polyline positions={arr} color={random_rgb()} key={idIndex} />
+            );
           })
         : null}
+      {!loading && !error ? <DeleleteBtn userInfo={data.result} /> : null}
     </>
   );
 };
