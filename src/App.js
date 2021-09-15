@@ -35,6 +35,7 @@ const App = () => {
     lon: 127.14299349434039,
   });
 
+  // 중심 마커
   const iconCenter = new L.Icon({
     iconUrl:
       "https://user-images.githubusercontent.com/62231339/132805364-f99877c0-5909-403a-aede-7dc11421a6a6.png",
@@ -49,6 +50,7 @@ const App = () => {
     className: "leaflet-div-centerIcon",
   });
 
+  // 오프라인에서도 가능하게 하기
   const offLineMap = () => {
     const map = L.map("map-id");
     const offlineLayer = L.tileLayer.offline(
@@ -96,7 +98,10 @@ const App = () => {
             position={[initCenterMarker.lat, initCenterMarker.lon]}
             icon={iconCenter}
           />
-          <AllLocationUsers></AllLocationUsers>
+          <AllLocationUsers
+            initMap={initMap}
+            initCircle={initCircle}
+          ></AllLocationUsers>
         </MapContainer>
       </div>
     </div>
