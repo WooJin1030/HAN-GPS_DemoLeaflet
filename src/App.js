@@ -1,11 +1,55 @@
 import React, { useEffect, useState } from "react";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, Circle, Marker } from "react-leaflet";
 import L from "leaflet";
 import localforage from "localforage";
 import "leaflet-offline";
+import AllLocationUsers from "./Components/AllLocationUsers";
 
 const App = () => {
-  useEffect(() => {
+  const [initMap, setInitMap] = useState({
+    lat: 37.47386563818747,
+    lon: 127.14299349434039,
+    zoom: 16,
+    maxZoom: 16,
+  });
+
+  const [initTileLayer, setInitTileLayer] = useState({
+    attribution:
+      '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+    url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    maxZoom: 16,
+    tileSize: 512,
+    zoomOffset: -1,
+  });
+
+  const [initCircle, setInitCircle] = useState({
+    lat: 37.47386563818747,
+    lon: 127.14299349434039,
+    fillOpacity: 0.6,
+    color: "skyblue",
+    radius: 500,
+  });
+
+  const [initCenterMarker, setInitCenterMarker] = useState({
+    lat: 37.47386563818747,
+    lon: 127.14299349434039,
+  });
+
+  const iconCenter = new L.Icon({
+    iconUrl:
+      "https://user-images.githubusercontent.com/62231339/132805364-f99877c0-5909-403a-aede-7dc11421a6a6.png",
+    iconRetinaUrl:
+      "https://user-images.githubusercontent.com/62231339/132805364-f99877c0-5909-403a-aede-7dc11421a6a6.png",
+    iconAnchor: null,
+    popupAnchor: [0, 0],
+    shadowUrl: null,
+    shadowSize: null,
+    shadowAnchor: null,
+    iconSize: new L.Point(50, 60),
+    className: "leaflet-div-centerIcon",
+  });
+
+  const offLineMap = () => {
     const map = L.map("map-id");
     const offlineLayer = L.tileLayer.offline(
       "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -20,29 +64,39 @@ const App = () => {
       }
     );
     offlineLayer.addTo(map);
-  });
+  };
+
+  useEffect(() => {
+    offLineMap();
+  }, []);
 
   return (
     <div className="App">
       <div id="map-id">
         <MapContainer
-          center={[37.47386563818747, 127.14299349434039]}
-          zoom={13}
-          maxZoom={16}
+          center={[initMap.lat, initMap.lon]}
+          zoom={initMap.zoom}
+          maxZoom={initMap.maxZoom}
           id="map"
         >
           <TileLayer
-            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            maxZoom={16}
-            tileSize={512}
-            zoomOffset={-1}
+            attribution={initTileLayer.attribution}
+            url={initTileLayer.url}
+            maxZoom={initTileLayer.maxZoom}
+            tileSize={initTileLayer.tileSize}
+            zoomOffset={initTileLayer.zoomOffset}
           />
-          <Marker position={[37.47386563818747, 127.14299349434039]}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
+          <Circle
+            center={[initCircle.lat, initCircle.lon]}
+            color={initCircle.color}
+            radius={initCircle.radius}
+            fillOpacity={initCircle.fillOpacity}
+          />
+          <Marker
+            position={[initCenterMarker.lat, initCenterMarker.lon]}
+            icon={iconCenter}
+          />
+          <AllLocationUsers></AllLocationUsers>
         </MapContainer>
       </div>
     </div>
