@@ -53,7 +53,7 @@ const DeleleteBtn = ({ userInfo }) => {
           <Button
             onClick={() => onClickDeleteBtn(user[1])}
             key={user[1]}
-            className={user[1]}
+            className="deleteBtn"
           >
             <ButtonText>
               Delete{"  "}

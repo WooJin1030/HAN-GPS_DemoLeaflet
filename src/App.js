@@ -74,7 +74,7 @@ const App = () => {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: "abc",
         minZoom: 13,
-        maxZoom: 19,
+        maxZoom: 16,
         crossOrigin: true,
       }
     );
@@ -143,15 +143,24 @@ const App = () => {
         </MapContainer>
 
         <ReactPopup
-          trigger={<ChangeOptionsBtn> Change Options</ChangeOptionsBtn>}
+          trigger={
+            <ChangeOptionsBtn className="optionsBtn">
+              {" "}
+              Change Options
+            </ChangeOptionsBtn>
+          }
           position="left center"
         >
           <form onSubmit={handleSubmit(onSubmit)}>
             <input {...register("lat")} placeholder="중심 위도"></input>
             <input {...register("lon")} placeholder="중심 경도"></input>
             <input {...register("radius")} placeholder="범위의 반지름"></input>
-            <input type="submit" value="Change"></input>
-            <button onClick={onClickReset}>초기화</button>
+            <div className="mapOptionBtns">
+              <input type="submit" value="Change"></input>
+              <button className="resetBtn" onClick={onClickReset}>
+                Reset
+              </button>
+            </div>
           </form>
         </ReactPopup>
       </div>

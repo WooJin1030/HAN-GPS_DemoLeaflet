@@ -160,10 +160,14 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
             );
           })
         : null}
-      {!loading && !error ? <DeleleteBtn userInfo={data.result} /> : null}
+      {!loading && !error ? (
+        <DeleleteBtn className="deleteBtn" userInfo={data.result} />
+      ) : null}
       {!loading && !error ? (
         <ButtonContainer>
-          <RefetchBtn onClick={refetch}>Refetch Datas</RefetchBtn>
+          <RefetchBtn className="fetchBtn" onClick={refetch}>
+            Refetch Datas
+          </RefetchBtn>
         </ButtonContainer>
       ) : null}
     </>
