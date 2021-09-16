@@ -82,8 +82,6 @@ const App = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
-
     setInitMap({
       lat: data.lat,
       lon: data.lon,
@@ -105,16 +103,20 @@ const App = () => {
     window.location.reload();
   };
 
-  useEffect(() => {
-    offLineMap();
-  }, []);
+  // useEffect(() => {
+  //   offLineMap();
+  // }, []);
 
   return (
     <div className="App">
       <div id="map-id">
         <MapContainer
-          center={[initMap.lat, initMap.lon]}
-          zoom={initMap.zoom}
+          center={
+            [initMap.lat, initMap.lon]
+              ? [initMap.lat, initMap.lon]
+              : [37.47386563818747, 127.14299349434039]
+          }
+          zoom={initMap.zoom ? 16 : 16}
           maxZoom={initMap.maxZoom}
           id="map"
         >
