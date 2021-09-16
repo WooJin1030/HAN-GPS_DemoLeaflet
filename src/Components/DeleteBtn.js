@@ -55,7 +55,21 @@ const DeleleteBtn = ({ userInfo }) => {
             key={user[1]}
             className={user[1]}
           >
-            <ButtonText>{user[0]}</ButtonText>
+            <ButtonText>
+              Delete{"  "}
+              <span
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                }}
+              >
+                {user[0]}
+              </span>
+              {"  "}
+              Locations
+            </ButtonText>
           </Button>
         );
       })}
