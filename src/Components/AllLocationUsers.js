@@ -1,5 +1,6 @@
 import React from "react";
 import useAxios from "axios-hooks";
+import axios from "axios";
 import { Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 import DeleleteBtn from "./DeleteBtn";
@@ -107,6 +108,28 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
     });
   }
 
+  // 범위 밖 유저
+  const outOfRange = async (userIdx) => {
+    await axios
+      .patch(`${BaseURL}restricts/in-out`, {
+        userIdx: userIdx,
+        restrictStatus: "N",
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
+
+  // 범위 안 유저
+  const inOfRange = async (userIdx) => {
+    await axios
+      .patch(`${BaseURL}restricts/in-out`, {
+        userIdx: userIdx,
+        restrictStatus: "Y",
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <>
       {!loading && !error
@@ -119,6 +142,7 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
                 user.longitude
               ) > initCircle.radius
             ) {
+              outOfRange(user.userIdx);
               return (
                 <Marker
                   key={index}
@@ -135,6 +159,7 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
                 </Marker>
               );
             } else {
+              inOfRange(user.userIdx);
               return (
                 <Marker
                   key={index}
