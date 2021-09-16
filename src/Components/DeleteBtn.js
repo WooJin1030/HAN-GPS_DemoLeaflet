@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useAxios from "axios-hooks";
+import axios from "axios";
 
 const ButtonContainer = styled.div``;
 
@@ -27,17 +27,15 @@ const DeleleteBtn = ({ userInfo }) => {
     users.push([userIds[i], userIdxs[i]]);
   }
 
-  //   let response = await fetch(`${Base_URL}locations/status/all`, {
-  //       method: "PATCH",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({
-  //         userIdx: locationUser[i].userIdx,
-  //         status: "N",
-  //       }),
-  //     });
-  //     let data = await response.json();
-  //     console.log(data);
-  //    }
+  const onClickDeleteBtn = async (userIdx) => {
+    await axios
+      .patch(`${BaseURL}locations/status/all`, {
+        userIdx: userIdx,
+        status: "N",
+      })
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  };
 
   return (
     <ButtonContainer
@@ -52,7 +50,11 @@ const DeleleteBtn = ({ userInfo }) => {
     >
       {users.map((user) => {
         return (
-          <Button onClick={() => {}} key={user[1]} className={user[1]}>
+          <Button
+            onClick={() => onClickDeleteBtn(user[1])}
+            key={user[1]}
+            className={user[1]}
+          >
             <ButtonText>{user[0]}</ButtonText>
           </Button>
         );
