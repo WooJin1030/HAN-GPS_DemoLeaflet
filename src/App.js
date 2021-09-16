@@ -3,9 +3,22 @@ import { MapContainer, TileLayer, Circle, Marker } from "react-leaflet";
 import L from "leaflet";
 import localforage from "localforage";
 import "leaflet-offline";
+import "reactjs-popup/dist/index.css";
+import { Popup as ReactPopup } from "reactjs-popup";
+import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import AllLocationUsers from "./Components/AllLocationUsers";
 
+const ChangeOptionsBtn = styled.button`
+  position: absolute;
+  top: 130px;
+  right: 256px;
+  padding: 10px 42px;
+`;
+
 const App = () => {
+  const { register, handleSubmit } = useForm();
+
   const [initMap, setInitMap] = useState({
     lat: 37.47386563818747,
     lon: 127.14299349434039,
@@ -68,6 +81,30 @@ const App = () => {
     offlineLayer.addTo(map);
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+
+    setInitMap({
+      lat: data.lat,
+      lon: data.lon,
+    });
+
+    setInitCircle({
+      lat: data.lat,
+      lon: data.lon,
+      radius: data.radius,
+    });
+
+    setInitCenterMarker({
+      lat: data.lat,
+      lon: data.lon,
+    });
+  };
+
+  const onClickReset = () => {
+    window.location.reload();
+  };
+
   useEffect(() => {
     offLineMap();
   }, []);
@@ -101,8 +138,22 @@ const App = () => {
           <AllLocationUsers
             initMap={initMap}
             initCircle={initCircle}
+            initCenterMarker={initCenterMarker}
           ></AllLocationUsers>
         </MapContainer>
+
+        <ReactPopup
+          trigger={<ChangeOptionsBtn> Change Options</ChangeOptionsBtn>}
+          position="left center"
+        >
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input {...register("lat")} placeholder="중심 위도"></input>
+            <input {...register("lon")} placeholder="중심 경도"></input>
+            <input {...register("radius")} placeholder="범위의 반지름"></input>
+            <input type="submit" value="Change"></input>
+            <button onClick={onClickReset}>초기화</button>
+          </form>
+        </ReactPopup>
       </div>
     </div>
   );

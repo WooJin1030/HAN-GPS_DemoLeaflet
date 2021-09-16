@@ -5,14 +5,19 @@ import L from "leaflet";
 import DeleleteBtn from "./DeleteBtn";
 import styled from "styled-components";
 
-const RefetchBtn = styled.button`
+const ButtonContainer = styled.div`
   position: absolute;
   top: 80px;
   right: 256px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const RefetchBtn = styled.button`
   padding: 10px 50px;
 `;
 
-const AllLocationUsers = ({ initMap, initCircle }) => {
+const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
   const BaseURL = "https://www.gpsdemo.shop/";
   const usersId = [];
 
@@ -101,7 +106,7 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
       }
     });
   }
-  // console.log(pathLines);
+
   return (
     <>
       {!loading && !error
@@ -157,7 +162,9 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
         : null}
       {!loading && !error ? <DeleleteBtn userInfo={data.result} /> : null}
       {!loading && !error ? (
-        <RefetchBtn onClick={refetch}>Refetch Datas</RefetchBtn>
+        <ButtonContainer>
+          <RefetchBtn onClick={refetch}>Refetch Datas</RefetchBtn>
+        </ButtonContainer>
       ) : null}
     </>
   );
