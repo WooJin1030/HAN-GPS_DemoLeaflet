@@ -3,6 +3,14 @@ import useAxios from "axios-hooks";
 import { Marker, Popup, Polyline } from "react-leaflet";
 import L from "leaflet";
 import DeleleteBtn from "./DeleteBtn";
+import styled from "styled-components";
+
+const RefetchBtn = styled.button`
+  position: absolute;
+  top: 80px;
+  right: 256px;
+  padding: 10px 50px;
+`;
 
 const AllLocationUsers = ({ initMap, initCircle }) => {
   const BaseURL = "https://www.gpsdemo.shop/";
@@ -148,6 +156,9 @@ const AllLocationUsers = ({ initMap, initCircle }) => {
           })
         : null}
       {!loading && !error ? <DeleleteBtn userInfo={data.result} /> : null}
+      {!loading && !error ? (
+        <RefetchBtn onClick={refetch}>Refetch Datas</RefetchBtn>
+      ) : null}
     </>
   );
 };
