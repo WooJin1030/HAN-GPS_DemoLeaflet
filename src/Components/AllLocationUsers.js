@@ -115,7 +115,7 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
         userIdx: userIdx,
         restrictStatus: "N",
       })
-      .then((response) => console.log(response.data))
+      .then((response) => console.log("out of range!"))
       .catch((error) => console.log(error));
   };
 
@@ -126,7 +126,7 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
         userIdx: userIdx,
         restrictStatus: "Y",
       })
-      .then((response) => console.log(response.data))
+      .then((response) => console.log("in range!"))
       .catch((error) => console.log(error));
   };
 
@@ -150,6 +150,8 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
                   icon={iconMarkerOut}
                 >
                   <Popup>
+                    {user.createdAt_location}
+                    <br />
                     {user.id}의 경로
                     <br />
                     <span style={{ color: "red", fontSize: "16px" }}>
@@ -166,7 +168,11 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
                   position={[user.latitude, user.longitude]}
                   icon={iconMarkerIn}
                 >
-                  <Popup>{user.id}의 경로</Popup>
+                  <Popup>
+                    {user.createdAt_location}
+                    <br />
+                    {user.id}의 경로
+                  </Popup>
                 </Marker>
               );
             }
