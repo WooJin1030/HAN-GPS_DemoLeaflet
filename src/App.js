@@ -38,8 +38,8 @@ const App = () => {
   const [initCircle, setInitCircle] = useState({
     lat: 37.47386563818747,
     lon: 127.14299349434039,
-    fillOpacity: 0.6,
-    color: "skyblue",
+    fillOpacity: 0.3,
+    color: "#00acc1",
     radius: 500,
   });
 
@@ -51,11 +51,11 @@ const App = () => {
   // 중심 마커
   const iconCenter = new L.Icon({
     iconUrl:
-      "https://user-images.githubusercontent.com/62231339/132805364-f99877c0-5909-403a-aede-7dc11421a6a6.png",
+      "https://user-images.githubusercontent.com/62231339/134606859-120b96e3-15b7-4e66-b12f-16ceab80d6d4.png",
     iconRetinaUrl:
-      "https://user-images.githubusercontent.com/62231339/132805364-f99877c0-5909-403a-aede-7dc11421a6a6.png",
-    iconAnchor: null,
-    popupAnchor: [0, -10],
+      "https://user-images.githubusercontent.com/62231339/134606859-120b96e3-15b7-4e66-b12f-16ceab80d6d4.png",
+    iconAnchor: [25, 45],
+    popupAnchor: [0, 10],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,

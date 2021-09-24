@@ -29,7 +29,7 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
     iconRetinaUrl:
       "https://user-images.githubusercontent.com/62231339/133370867-f3db9284-04b2-4900-beb7-ddcc15300eaf.png",
     iconAnchor: null,
-    popupAnchor: [0, -10],
+    popupAnchor: [0, -15],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
@@ -40,15 +40,15 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
   // 범위 밖의 마커
   let iconMarkerOut = new L.Icon({
     iconUrl:
-      "https://user-images.githubusercontent.com/62231339/132806394-a8727be1-70b0-4c7d-b1b5-1023eccc6925.png",
+      "https://user-images.githubusercontent.com/62231339/134607908-ab411f67-e183-4120-8f72-89b9016e56da.png",
     iconRetinaUrl:
-      "https://user-images.githubusercontent.com/62231339/132806394-a8727be1-70b0-4c7d-b1b5-1023eccc6925.png",
+      "https://user-images.githubusercontent.com/62231339/134607908-ab411f67-e183-4120-8f72-89b9016e56da.png",
     iconAnchor: null,
-    popupAnchor: [0, -10],
+    popupAnchor: [0, -20],
     shadowUrl: null,
     shadowSize: null,
     shadowAnchor: null,
-    iconSize: new L.Point(60, 65),
+    iconSize: new L.Point(70, 75),
     className: "leaflet-div-centerIcon",
   });
 
@@ -152,7 +152,16 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
                   <Popup>
                     {user.createdAt_location}
                     <br />
-                    {user.id}의 경로
+                    <span
+                      style={{
+                        color: "#26c6da",
+                        fontSize: "16px",
+                        letterSpacing: "2px",
+                      }}
+                    >
+                      {user.id}
+                    </span>
+                    의 경로
                     <br />
                     <span style={{ color: "red", fontSize: "16px" }}>
                       범위에서 벗어났습니다!
@@ -171,7 +180,16 @@ const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
                   <Popup>
                     {user.createdAt_location}
                     <br />
-                    {user.id}의 경로
+                    <span
+                      style={{
+                        color: "#26c6da",
+                        fontSize: "16px",
+                        letterSpacing: "2px",
+                      }}
+                    >
+                      {user.id}
+                    </span>
+                    의 경로
                   </Popup>
                 </Marker>
               );

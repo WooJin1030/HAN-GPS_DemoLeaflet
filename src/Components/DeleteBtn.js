@@ -61,7 +61,7 @@ const DeleleteBtn = ({ userInfo }) => {
                 style={{
                   color: "red",
                   fontWeight: "bold",
-                  textTransform: "uppercase",
+                  fontSize: "24px",
                   letterSpacing: "1px",
                 }}
               >
