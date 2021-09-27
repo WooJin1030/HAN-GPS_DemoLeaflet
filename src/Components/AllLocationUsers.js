@@ -18,7 +18,13 @@ const RefetchBtn = styled.button`
   padding: 10px 50px;
 `;
 
-const AllLocationUsers = ({ initMap, initCircle, initCenterMarker }) => {
+const AllLocationUsers = ({
+  initMap,
+  initCircle,
+  initPolygon,
+  isCircle,
+  isPolygon,
+}) => {
   const BaseURL = "https://www.gpsdemo.shop/";
   const usersId = [];
 

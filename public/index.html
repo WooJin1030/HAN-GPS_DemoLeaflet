@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      rel="icon"
+      href="https://user-images.githubusercontent.com/62231339/134606859-120b96e3-15b7-4e66-b12f-16ceab80d6d4.png"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -30,7 +33,7 @@
     -->
 
     <!-- leflet -->
-    <title>React App</title>
+    <title>Han GPS</title>
     <style>
       * {
         margin: 0;
@@ -48,7 +51,9 @@
 
       .deleteBtn,
       .fetchBtn,
-      .optionsBtn {
+      .optionsBtn,
+      .polygonBtn,
+      .circleBtn {
         font-size: 16px;
         background-color: black;
         color: white;
@@ -71,7 +76,7 @@
         margin-top: 16px;
       }
 
-      form {
+      .circleForm {
         margin: 50px 50px;
         display: flex;
         flex-direction: column;
@@ -79,9 +84,22 @@
         align-items: center;
       }
 
-      input:not([type="submit"]) {
+      .polygonForm {
+        margin: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .circleRow {
         margin-bottom: 8px;
         padding: 5px 10px;
+      }
+
+      .polygonRow {
+        width: 80px;
+        height: 20px;
       }
 
       input:hover {
@@ -94,6 +112,10 @@
         font-weight: bold;
         padding: 5px 10px;
         transition: all 300ms ease-in-out;
+      }
+
+      .inputRow {
+        display: flex;
       }
 
       .resetBtn {
@@ -125,12 +147,5 @@
         To begin the development, run `npm start` or `yarn start`.
         To create a production bundle, use `npm run build` or `yarn build`.
       -->
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="../walid.css" />
-    <script src="../dist/leaflet.js"></script>
-    <script src="../dist/leaflet.rotatedMarker.js"></script>
-    <link rel="stylesheet" href="../label/Icon.Label.css" />
-    <script src="../label/Icon.Label.js"></script>
-    <script src="../label/Icon.Label.Default.js"></script>
   </body>
 </html>
