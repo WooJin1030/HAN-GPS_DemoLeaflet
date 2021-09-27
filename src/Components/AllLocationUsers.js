@@ -138,7 +138,7 @@ const AllLocationUsers = ({
 
   return (
     <>
-      {!loading && !error
+      {!loading && !error && isCircle && !isPolygon
         ? data.result.map((user, index) => {
             if (
               getDistanceFromLatLonInKm(
@@ -202,6 +202,9 @@ const AllLocationUsers = ({
             }
           })
         : null}
+
+      {!loading && !error && isPolygon && !isCircle ? null : null}
+
       {!loading && !error
         ? usersId.map((id, idIndex) => {
             let arr = [];

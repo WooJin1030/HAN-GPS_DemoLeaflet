@@ -68,7 +68,8 @@ const App = () => {
   });
 
   const [initPolygon, setInitPolygon] = useState({
-    color: "purple",
+    fillOpacity: 0.3,
+    color: "#00acc1",
     path: [
       [37.47756563818747, 127.14299349434039],
       [37.46886563818747, 127.14299349434039],
@@ -174,7 +175,6 @@ const App = () => {
   };
 
   // useEffect(() => {
-  //   offLineMap();
   // }, []);
 
   return (
@@ -207,7 +207,11 @@ const App = () => {
           ) : null}
 
           {!isCircle && isPolygon ? (
-            <Polygon color={initPolygon.color} positions={initPolygon.path} />
+            <Polygon
+              color={initPolygon.color}
+              fillOpacity={initPolygon.fillOpacity}
+              positions={initPolygon.path}
+            />
           ) : null}
 
           <Marker
