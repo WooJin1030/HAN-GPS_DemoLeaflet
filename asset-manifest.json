@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/gps_leaflet/static/js/main.2232b0e7.chunk.js",
+    "main.js.map": "/gps_leaflet/static/js/main.2232b0e7.chunk.js.map",
+    "runtime-main.js": "/gps_leaflet/static/js/runtime-main.f461cde4.js",
+    "runtime-main.js.map": "/gps_leaflet/static/js/runtime-main.f461cde4.js.map",
+    "static/css/2.450bcdb5.chunk.css": "/gps_leaflet/static/css/2.450bcdb5.chunk.css",
+    "static/js/2.567e5079.chunk.js": "/gps_leaflet/static/js/2.567e5079.chunk.js",
+    "static/js/2.567e5079.chunk.js.map": "/gps_leaflet/static/js/2.567e5079.chunk.js.map",
+    "index.html": "/gps_leaflet/index.html",
+    "static/css/2.450bcdb5.chunk.css.map": "/gps_leaflet/static/css/2.450bcdb5.chunk.css.map",
+    "static/js/2.567e5079.chunk.js.LICENSE.txt": "/gps_leaflet/static/js/2.567e5079.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f461cde4.js",
+    "static/css/2.450bcdb5.chunk.css",
+    "static/js/2.567e5079.chunk.js",
+    "static/js/main.2232b0e7.chunk.js"
+  ]
+}
