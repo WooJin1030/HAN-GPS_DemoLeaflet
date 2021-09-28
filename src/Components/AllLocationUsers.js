@@ -136,6 +136,7 @@ const AllLocationUsers = ({
       .catch((error) => console.log(error));
   };
 
+  // 1분마다 자동 refetch
   useEffect(() => {
     const timer = setInterval(() => refetch(), 100000);
     return () => clearInterval(timer);
