@@ -39,7 +39,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://woojin1030.github.io/gps_leaflet",
+  "homepage": "https://woojin1030.github.io/HAN-GPS_DemoLeaflet",
   "browserslist": {
     "production": [
       ">0.2%",
