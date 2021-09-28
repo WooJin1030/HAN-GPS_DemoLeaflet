@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useAxios from "axios-hooks";
 import axios from "axios";
 import { Marker, Popup, Polyline } from "react-leaflet";
@@ -135,6 +135,11 @@ const AllLocationUsers = ({
       .then((response) => console.log("in range!"))
       .catch((error) => console.log(error));
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => refetch(), 100000);
+    return () => clearInterval(timer);
+  });
 
   return (
     <>
