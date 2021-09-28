@@ -259,7 +259,11 @@ const App = () => {
               ></input>
               <div className="mapOptionBtns">
                 <input type="submit" value="Change"></input>
-                <button className="resetBtn" onClick={onClickReset}>
+                <button
+                  type="button"
+                  className="resetBtn"
+                  onClick={onClickReset}
+                >
                   Reset
                 </button>
               </div>
@@ -342,7 +346,11 @@ const App = () => {
 
               <div className="mapOptionBtns">
                 <input type="submit" value="Change"></input>
-                <button className="resetBtn" onClick={onClickReset}>
+                <button
+                  type="button"
+                  className="resetBtn"
+                  onClick={onClickReset}
+                >
                   Reset
                 </button>
               </div>
