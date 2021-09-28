@@ -78,6 +78,25 @@ const AllLocationUsers = ({
     return d * 1000;
   };
 
+  // X, Y좌표로 다각형 범위 파악
+  const pointInPolygon = function (polygon, point) {
+    let odd = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; i++) {
+      if (
+        // eslint-disable-next-line no-mixed-operators
+        polygon[i][1] > point[1] !== polygon[j][1] > point[1] &&
+        point[0] <
+          ((polygon[j][0] - polygon[i][0]) * (point[1] - polygon[i][1])) /
+            (polygon[j][1] - polygon[i][1]) +
+            polygon[i][0]
+      ) {
+        odd = !odd;
+      }
+      j = i;
+    }
+    return odd;
+  };
+
   // 랜덤 색
   const random_rgb = () => {
     let o = Math.round,
@@ -211,7 +230,68 @@ const AllLocationUsers = ({
         : null}
 
       {/* 범위 내에 있는지 밖에 있는지에 따라 마커, 팝업 변화 (다각형일때)*/}
-      {!loading && !error && isPolygon && !isCircle ? null : null}
+      {!loading && !error && isPolygon && !isCircle
+        ? data.result.map((user, index) => {
+            if (
+              pointInPolygon(initPolygon.path, [
+                user.latitude,
+                user.longitude,
+              ]) === false
+            ) {
+              outOfRange(user.userIdx);
+              return (
+                <Marker
+                  key={index}
+                  position={[user.latitude, user.longitude]}
+                  icon={iconMarkerOut}
+                >
+                  <Popup>
+                    {user.createdAt_location}
+                    <br />
+                    <span
+                      style={{
+                        color: "#26c6da",
+                        fontSize: "16px",
+                        letterSpacing: "2px",
+                      }}
+                    >
+                      {user.id}
+                    </span>
+                    의 경로
+                    <br />
+                    <span style={{ color: "red", fontSize: "16px" }}>
+                      범위에서 벗어났습니다!
+                    </span>
+                  </Popup>
+                </Marker>
+              );
+            } else {
+              inOfRange(user.userIdx);
+              return (
+                <Marker
+                  key={index}
+                  position={[user.latitude, user.longitude]}
+                  icon={iconMarkerIn}
+                >
+                  <Popup>
+                    {user.createdAt_location}
+                    <br />
+                    <span
+                      style={{
+                        color: "#26c6da",
+                        fontSize: "16px",
+                        letterSpacing: "2px",
+                      }}
+                    >
+                      {user.id}
+                    </span>
+                    의 경로
+                  </Popup>
+                </Marker>
+              );
+            }
+          })
+        : null}
 
       {/* 같은 ID끼리 새로운 배열 생성해서 PolyLine으로 return */}
       {!loading && !error
