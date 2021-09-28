@@ -39,7 +39,7 @@
       "react-app/jest"
     ]
   },
-  "homepage": "https://woojin1030.github.io/HAN-GPS_DemoLeaflet",
+  "homepage": "https://stoic-mclean-b2ca61.netlify.app/",
   "browserslist": {
     "production": [
       ">0.2%",
