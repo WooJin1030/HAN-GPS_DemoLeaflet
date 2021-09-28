@@ -7,13 +7,13 @@ import {
   Marker,
   Polygon,
 } from "react-leaflet";
-// import "leaflet-offline";
-import localforage from "localforage";
 import { Popup as ReactPopup } from "reactjs-popup";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import AllLocationUsers from "./Components/AllLocationUsers";
 import "reactjs-popup/dist/index.css";
+// import "leaflet-offline";
+// import localforage from "localforage";
 
 const ChangeOptionsBtn = styled.button`
   position: absolute;
