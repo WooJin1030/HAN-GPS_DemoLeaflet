@@ -33,6 +33,7 @@ const CircleBtn = styled.button`
   padding: 10px 50px;
   margin-right: 8px;
 `;
+
 const PolygonBtn = styled.button`
   padding: 10px 50px;
 `;
@@ -40,7 +41,8 @@ const PolygonBtn = styled.button`
 const App = () => {
   const { register, handleSubmit } = useForm();
 
-  const [isCircle, setIsCircle] = useState(true);
+  // 원형인지 다각형인지
+  const [isCircle, setIsCircle] = useState(true); // default는 원형
   const [isPolygon, setIsPolygon] = useState(false);
 
   const [initMap, setInitMap] = useState({
@@ -71,9 +73,11 @@ const App = () => {
     fillOpacity: 0.3,
     color: "#00acc1",
     path: [
-      [37.47756563818747, 127.14299349434039],
-      [37.46886563818747, 127.14299349434039],
-      [37.47386563818747, 127.14799349434039],
+      [37.47856563818747, 127.14299349434039],
+      [37.47386563818747, 127.14850349434039],
+      [37.46976563818747, 127.14799349434039],
+      [37.46886563818747, 127.14199349434039],
+      [37.47386563818747, 127.13489349434039],
     ],
   });
 
@@ -98,23 +102,24 @@ const App = () => {
   });
 
   // 오프라인에서도 가능하게 하기
-  const offLineMap = () => {
-    const map = L.map("map-id");
-    const offlineLayer = L.tileLayer.offline(
-      "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-      localforage,
-      {
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: "abc",
-        minZoom: 13,
-        maxZoom: 16,
-        crossOrigin: true,
-      }
-    );
-    offlineLayer.addTo(map);
-  };
+  // const offLineMap = () => {
+  //   const map = L.map("map-id");
+  //   const offlineLayer = L.tileLayer.offline(
+  //     "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  //     localforage,
+  //     {
+  //       attribution:
+  //         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  //       subdomains: "abc",
+  //       minZoom: 13,
+  //       maxZoom: 16,
+  //       crossOrigin: true,
+  //     }
+  //   );
+  //   offlineLayer.addTo(map);
+  // };
 
+  // 원의 중심 위도/경도, 반지름 바꾸기
   const onSubmitCircle = (data) => {
     if (!data.lat || !data.lon || !data.radius)
       alert("모든 항목을 채워야 합니다.");
@@ -136,6 +141,7 @@ const App = () => {
     });
   };
 
+  // 다각형의 위도/경도 바꾸기
   const onSubmitPolygon = (data) => {
     if (!data.lat3 || !data.lon3)
       alert("세번째 위도 경도까지는 채워야 합니다.");
@@ -170,6 +176,7 @@ const App = () => {
     }
   };
 
+  // reset하면 새로고침
   const onClickReset = () => {
     window.location.reload();
   };
@@ -197,6 +204,8 @@ const App = () => {
             tileSize={initTileLayer.tileSize}
             zoomOffset={initTileLayer.zoomOffset}
           />
+
+          {/* 원형 / 다각형 선택 */}
           {isCircle && !isPolygon ? (
             <Circle
               center={[initCircle.lat, initCircle.lon]}
@@ -214,10 +223,13 @@ const App = () => {
             />
           ) : null}
 
+          {/* 중심 마커 */}
           <Marker
             position={[initCenterMarker.lat, initCenterMarker.lon]}
             icon={iconCenter}
           />
+
+          {/* 다른 지도 요소들 */}
           <AllLocationUsers
             initMap={initMap}
             initCircle={initCircle}
@@ -228,6 +240,7 @@ const App = () => {
           ></AllLocationUsers>
         </MapContainer>
 
+        {/* 원형일때의 팝업 : 다각형일때의 팝업 */}
         {isCircle ? (
           <ReactPopup
             trigger={
@@ -358,6 +371,7 @@ const App = () => {
           </ReactPopup>
         )}
 
+        {/* 원형인지 다각형인지 선택하는 버튼 */}
         <ShapeOptions>
           <CircleBtn
             className="circleBtn"

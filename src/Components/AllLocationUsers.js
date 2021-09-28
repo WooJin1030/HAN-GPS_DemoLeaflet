@@ -64,8 +64,8 @@ const AllLocationUsers = ({
       return deg * (Math.PI / 180);
     }
 
-    let R = 6371; // Radius of the earth in km
-    let dLat = deg2rad(lat2 - lat1); // deg2rad below
+    let R = 6371;
+    let dLat = deg2rad(lat2 - lat1);
     let dLon = deg2rad(lng2 - lng1);
     let a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -74,7 +74,7 @@ const AllLocationUsers = ({
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    let d = R * c; // Distance in km
+    let d = R * c;
     return d * 1000;
   };
 
@@ -138,6 +138,7 @@ const AllLocationUsers = ({
 
   return (
     <>
+      {/* 범위 내에 있는지 밖에 있는지에 따라 마커, 팝업 변화 (원형일때)*/}
       {!loading && !error && isCircle && !isPolygon
         ? data.result.map((user, index) => {
             if (
@@ -203,8 +204,10 @@ const AllLocationUsers = ({
           })
         : null}
 
+      {/* 범위 내에 있는지 밖에 있는지에 따라 마커, 팝업 변화 (다각형일때)*/}
       {!loading && !error && isPolygon && !isCircle ? null : null}
 
+      {/* 같은 ID끼리 새로운 배열 생성해서 PolyLine으로 return */}
       {!loading && !error
         ? usersId.map((id, idIndex) => {
             let arr = [];
@@ -212,15 +215,18 @@ const AllLocationUsers = ({
               if (Object.keys(line)[0] === id)
                 arr.push(line[Object.keys(line)[0]]);
             });
-            // console.log(arr);
             return (
               <Polyline positions={arr} color={random_rgb()} key={idIndex} />
             );
           })
         : null}
+
+      {/* 유저의 전체 경로 삭제 */}
       {!loading && !error ? (
         <DeleleteBtn className="deleteBtn" userInfo={data.result} />
       ) : null}
+
+      {/* 위치 정보값을 가진 유저의 데이터 갱신 */}
       {!loading && !error ? (
         <ButtonContainer>
           <RefetchBtn className="fetchBtn" onClick={refetch}>
