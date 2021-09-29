@@ -207,12 +207,20 @@ const App = () => {
 
           {/* 원형 / 다각형 선택 */}
           {isCircle && !isPolygon ? (
-            <Circle
-              center={[initCircle.lat, initCircle.lon]}
-              color={initCircle.color}
-              radius={initCircle.radius}
-              fillOpacity={initCircle.fillOpacity}
-            />
+            <>
+              <Circle
+                center={[initCircle.lat, initCircle.lon]}
+                color={initCircle.color}
+                radius={initCircle.radius}
+                fillOpacity={initCircle.fillOpacity}
+              />
+
+              {/* 중심 마커 */}
+              <Marker
+                position={[initCenterMarker.lat, initCenterMarker.lon]}
+                icon={iconCenter}
+              />
+            </>
           ) : null}
 
           {!isCircle && isPolygon ? (
@@ -222,12 +230,6 @@ const App = () => {
               positions={initPolygon.path}
             />
           ) : null}
-
-          {/* 중심 마커 */}
-          <Marker
-            position={[initCenterMarker.lat, initCenterMarker.lon]}
-            icon={iconCenter}
-          />
 
           {/* 다른 지도 요소들 */}
           <AllLocationUsers
