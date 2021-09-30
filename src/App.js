@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import L from "leaflet";
 import {
   MapContainer,
@@ -12,8 +12,8 @@ import { useForm } from "react-hook-form";
 import styled from "styled-components";
 import AllLocationUsers from "./Components/AllLocationUsers";
 import "reactjs-popup/dist/index.css";
-// import "leaflet-offline";
-// import localforage from "localforage";
+import "leaflet-offline";
+import localforage from "localforage";
 
 const ChangeOptionsBtn = styled.button`
   position: absolute;
@@ -102,22 +102,23 @@ const App = () => {
   });
 
   // 오프라인에서도 가능하게 하기
-  // const offLineMap = () => {
-  //   const map = L.map("map-id");
-  //   const offlineLayer = L.tileLayer.offline(
-  //     "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-  //     localforage,
-  //     {
-  //       attribution:
-  //         '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-  //       subdomains: "abc",
-  //       minZoom: 13,
-  //       maxZoom: 16,
-  //       crossOrigin: true,
-  //     }
-  //   );
-  //   offlineLayer.addTo(map);
-  // };
+  const offLineMap = () => {
+    const map = L.map("map-id");
+    const offlineLayer = L.tileLayer.offline(
+      "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      localforage,
+      {
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        subdomains: "abc",
+        minZoom: 13,
+        maxZoom: 16,
+        crossOrigin: true,
+      }
+    );
+    map.remove();
+    offlineLayer.addTo(map);
+  };
 
   // 원의 중심 위도/경도, 반지름 바꾸기
   const onSubmitCircle = (data) => {
@@ -181,8 +182,9 @@ const App = () => {
     window.location.reload();
   };
 
-  // useEffect(() => {
-  // }, []);
+  useEffect(() => {
+    offLineMap();
+  }, []);
 
   return (
     <div className="App">
