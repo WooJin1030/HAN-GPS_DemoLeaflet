@@ -182,9 +182,9 @@ const App = () => {
     window.location.reload();
   };
 
-  useEffect(() => {
-    offLineMap();
-  }, []);
+  // useEffect(() => {
+  //   offLineMap();
+  // }, []);
 
   return (
     <div className="App">
